@@ -37,7 +37,6 @@
     filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));
   }
 
-  /* Naik pelan + fade in-out */
   @keyframes bubbleFloat {
     0% { transform: translate(-50%, 0px) scale(0.7); opacity: 0; }
     20% { opacity: 1; }
@@ -45,7 +44,6 @@
     100% { transform: translate(-50%, -120px) scale(1); opacity: 0; }
   }
 
-  /* Goyang kiri kanan */
   @keyframes bubbleSway {
     0%   { transform: translateX(-20px); }
     100% { transform: translateX(20px); }
@@ -75,7 +73,6 @@
     100% { transform: translateY(0); }
   }
 
-  /* FOG */
   .fog {
     position: absolute;
     top: 0;
@@ -102,7 +99,6 @@
   @keyframes fogLeft { from {transform:translateX(0);} to {transform:translateX(150%);} }
   @keyframes fogRight { from {transform:translateX(0);} to {transform:translateX(-150%);} }
 
-  /* DOWN ARROW */
   .down-arrow {
     position: absolute;
     bottom: 20px;
@@ -117,7 +113,6 @@
     50% { transform: translateY(12px); }
   }
 
-  /* CONTENT */
   h1 {
     text-align: center;
     margin-top: 40px;
@@ -166,6 +161,38 @@
     color: white;
     border-radius: 10px;
     font-size: 16px;
+  }
+
+  /* =====================================================
+     RESPONSIVE FIX FOR MOBILE
+     ===================================================== */
+  @media (max-width: 600px) {
+
+    .container {
+      padding: 12px;
+    }
+
+    .section {
+      padding: 14px;
+      margin-top: 18px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+    }
+
+    .section ul li,
+    .section p,
+    label,
+    input,
+    select,
+    textarea {
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+    }
   }
 </style>
 </head>
@@ -257,7 +284,6 @@ function scrollToContent(){
   document.getElementById("content").scrollIntoView({behavior:"smooth"});
 }
 
-/* Google Sheet Endpoint */
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzfV4kzIMbuMegaQGjNmLCFov9W8wrwz7_0CRg-oBophQaI8wfLGDWZBBFyX4517Q8W1g/exec";
 
 function submitRSVP(e){
@@ -285,7 +311,7 @@ bgm.volume=0.5;
 document.addEventListener("click",()=>{ if(bgm.paused) bgm.play(); },{once:true});
 
 
-/* ===== BUBBLE SYSTEM (CENTERED SPAWN) ===== */
+/* ===== BUBBLE SYSTEM ===== */
 const bubbleLayer = document.getElementById("bubbleLayer");
 
 const imgs = [
@@ -299,11 +325,10 @@ function spawnBubble(){
   const b = document.createElement("div");
   b.className = "bubble";
 
-  const size = Math.random()*60 + 120; /* PERBESAR BUBBLE */
+  const size = Math.random()*60 + 120;
   b.style.width = size+"px";
   b.style.height = size+"px";
 
-  /* Selalu muncul di TENGAH layar */
   b.style.left = "50%";
   b.style.bottom = "30vh";
 
@@ -315,7 +340,6 @@ function spawnBubble(){
   setTimeout(()=>b.remove(), 8000);
 }
 
-/* spawn setiap 1.6 detik */
 setInterval(spawnBubble, 1600);
 
 </script>
