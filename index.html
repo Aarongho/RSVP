@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fun Day Part 2</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #000;
+    color: white;
+    overflow-x: hidden;
+  }
+
+  /* ===== BUBBLE VERY TOP LAYER ===== */
+  .bubble-top-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999; /* paling atas */
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: bubbleFloat 8s ease-in-out forwards,
+               bubbleSway 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));
+  }
+
+  /* Naik pelan + fade in-out */
+  @keyframes bubbleFloat {
+    0% { transform: translate(-50%, 0px) scale(0.7); opacity: 0; }
+    20% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: translate(-50%, -120px) scale(1); opacity: 0; }
+  }
+
+  /* Goyang kiri kanan */
+  @keyframes bubbleSway {
+    0%   { transform: translateX(-20px); }
+    100% { transform: translateX(20px); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-poster {
+    max-width: 100%;
+    max-height: 100%;
+    animation: floatPoster 6s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes floatPoster {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* FOG */
+  .fog {
+    position: absolute;
+    top: 0;
+    width: 120%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.45;
+    filter: blur(22px);
+    z-index: 3;
+  }
+
+  .fog-left {
+    left: -120%;
+    background: linear-gradient(to right, rgba(200,200,200,0.45), rgba(200,200,200,0));
+    animation: fogLeft 14s linear infinite;
+  }
+
+  .fog-right {
+    right: -120%;
+    background: linear-gradient(to left, rgba(200,200,200,0.45), rgba(200,200,200,0));
+    animation: fogRight 16s linear infinite;
+  }
+
+  @keyframes fogLeft { from {transform:translateX(0);} to {transform:translateX(150%);} }
+  @keyframes fogRight { from {transform:translateX(0);} to {transform:translateX(-150%);} }
+
+  /* DOWN ARROW */
+  .down-arrow {
+    position: absolute;
+    bottom: 20px;
+    font-size: 40px;
+    z-index: 4;
+    color: white;
+    animation: bounce 1.6s ease-in-out infinite;
+    cursor: pointer;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(12px); }
+  }
+
+  /* CONTENT */
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 32px;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .section {
+    background: #111;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 14px;
+    border: 1px solid #222;
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    border-left: 4px solid #ff6a1a;
+    padding-left: 10px;
+  }
+
+  .rsvp input,
+  .rsvp select,
+  .rsvp textarea {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: #1b1b1b;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 14px;
+    background: orange;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- BUBBLE LAYER PALING ATAS -->
+<div class="bubble-top-layer" id="bubbleLayer"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="poster.png" class="hero-poster">
+
+  <div class="fog fog-left"></div>
+  <div class="fog fog-right"></div>
+
+  <div class="down-arrow" onclick="scrollToContent()">⬇</div>
+</div>
+
+<div id="content"></div>
+
+<h1>CEPET CEPET KAYA FUN DAY PART 2</h1>
+
+<div class="container">
+
+  <div class="section">
+    <h2>📍 Informasi Acara</h2>
+    <p><b>Lokasi:</b> Citra 7 (Perumahan Bloomingdale blok E18 no.8)</p>
+    <p><b>Waktu:</b> 13:00 — Selesai</p>
+    <p><b>Tanggal/Hari:</b> 10 Januari 2026/ Sabtu</p>
+     <p><b>Dresscode</b>Kemeja/Dress</p>
+  </div>
+
+  <div class="section">
+    <h2>🎮 Activities & Games</h2>
+    <ul>
+      <li>Baper</li>
+      <li>Decode It</li>
+      <li>Figurine</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🍽️ Dinner # Dengan Fee 100.000 Per orang</h2>
+    <ul>
+      <li>Main Course</li>
+      <li>Snack & Dessert</li>
+      <li>Minuman</li>
+    </ul>
+
+  </div>
+
+   <div class="section">
+    <h2>YOU NEED TO BRING</h2>
+    <ul>
+      <li>1. Present </li>
+      <li>2. Snack ( Ga wajib untuk Pribadi )</li>
+      <li>3. Botol Minum </li>
+    </ul>
+  </div>
+
+  <div class="section rsvp">
+    <h2>✉️ RSVP</h2>
+
+    <form onsubmit="submitRSVP(event)">
+      <label>Nama</label>
+      <input type="text" name="nama" required>
+
+      <label>Status Kehadiran</label>
+      <select name="status" required>
+        <option value="">— Pilih Status —</option>
+        <option value="Hadir">✔ Hadir</option>
+        <option value="Tidak hadir">✖ Tidak hadir</option>
+        <option value="Masih ragu">❓ Masih ragu</option>
+      </select>
+
+      <label>Pesan (opsional)</label>
+      <textarea name="pesan" rows="3"></textarea>
+
+      <button class="btn" type="submit">Kirim RSVP</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+
+function scrollToContent(){
+  document.getElementById("content").scrollIntoView({behavior:"smooth"});
+}
+
+/* Google Sheet Endpoint */
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzfV4kzIMbuMegaQGjNmLCFov9W8wrwz7_0CRg-oBophQaI8wfLGDWZBBFyX4517Q8W1g/exec";
+
+function submitRSVP(e){
+  e.preventDefault();
+  const data=new FormData(e.target);
+
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    mode:"no-cors",
+    body:new URLSearchParams({
+      nama:data.get("nama"),
+      status:data.get("status"),
+      pesan:data.get("pesan") || "-"
+    })
+  }).then(()=>{
+    alert("RSVP terkirim!");
+    e.target.reset();
+  });
+}
+
+/* MUSIC */
+const bgm=new Audio("kembaliberaksi.mp3");
+bgm.loop=true;
+bgm.volume=0.5;
+document.addEventListener("click",()=>{ if(bgm.paused) bgm.play(); },{once:true});
+
+
+/* ===== BUBBLE SYSTEM (CENTERED SPAWN) ===== */
+const bubbleLayer = document.getElementById("bubbleLayer");
+
+const imgs = [
+  "1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg","6.jpeg",
+  "7.jpeg","8.jpeg","9.jpeg","10.jpeg","11.jpeg","12.jpeg","13.jpeg","14.jpeg","15.jpeg"
+];
+
+let i = 0;
+
+function spawnBubble(){
+  const b = document.createElement("div");
+  b.className = "bubble";
+
+  const size = Math.random()*60 + 120; /* PERBESAR BUBBLE */
+  b.style.width = size+"px";
+  b.style.height = size+"px";
+
+  /* Selalu muncul di TENGAH layar */
+  b.style.left = "50%";
+  b.style.bottom = "30vh";
+
+  b.style.backgroundImage = `url('${imgs[i]}')`;
+  i = (i+1) % imgs.length;
+
+  bubbleLayer.appendChild(b);
+
+  setTimeout(()=>b.remove(), 8000);
+}
+
+/* spawn setiap 1.6 detik */
+setInterval(spawnBubble, 1600);
+
+</script>
+
+</body>
+</html>
